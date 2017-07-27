@@ -1,0 +1,44 @@
+#include  <iostream> 
+#include <vector>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+  	string S;  
+  	cin>>S;
+
+  	int Len=S.length(),n,N,sum=0;
+  	vector<bool> used(Len,false);
+  	int max=1,now=1; //当前字符最长子串
+  	for(int i=0;i<Len;i++){
+      	max=1;
+    	if(used.at(i)==true){
+          now=1;continue;}
+      n=S.find((char)S[i],i+1);
+      N=i;//N用来记录上一个
+      while(n>0){
+        used[n]=true;
+        if(n==N+1){
+          now++;
+        }//连续
+        else{//不连续
+          if(now>max){max=now;}
+          now=1;//重置
+        }
+        
+        if(n==Len-1)break;
+        N=n;
+        n=S.find(S[i],N+1);
+   		
+      }
+      if(now>max){max=now;} 
+      sum+=max;
+      //cout <<i<<';'<<now <<';'<<max<< endl;
+    }
+   //cout << S << endl;
+   cout << sum << endl;
+    return 0;
+}
+                    
