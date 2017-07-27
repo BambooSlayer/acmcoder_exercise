@@ -1,0 +1,82 @@
+#include  <iostream> 
+#include <vector>
+#include <string>
+#include <algorithm>    // std::sort
+
+using namespace std;
+
+struct node
+{
+    int num;
+    int No;
+};
+int comp(const void *a,const void *b)//int comp(void *a,void *b)
+{
+    return (*(node *)a).num > (*(node *)b).num ? 1 : -1;
+};//!!!?????????????????Qsort????
+  
+int show(int No, vector<string> WTF)
+{
+  cout<<"Case #"<<No<<":"<<endl;
+  for(int i=0;i<WTF.size();i++)cout<<WTF[i]<<endl;
+  return 0;
+}
+
+int main()
+{
+  	int T,n;
+  	cin>>T; //????
+    if(T==0)return 0;
+	//vector<int> v(T,0);
+    struct node arry_findNums[T];
+  	for(int i=0;i<T;i++)
+    {
+    	cin>>arry_findNums[i].num;
+        arry_findNums[i].No = i+1;
+    }
+   //sort(v.begin(), v.end());
+   qsort(arry_findNums,T,sizeof(arry_findNums[0]),comp);//?????????
+  //for(int i=0;i++;i<T)
+  //int i=1;
+  //{ cout << arry_findNums[i].No<<':'<<arry_findNums[i].num << endl;}
+  int next=arry_findNums[0].num,BK;
+  vector<string> WTF;
+  WTF.push_back("o");
+  int k=0;
+  while(next==1){
+    show(arry_findNums[k].No,WTF);
+    k++;
+  	next=arry_findNums[k].num;
+  }
+  for(int i=2;i<=10 && k<T;i++)
+  {
+  BK=WTF.size();
+    for(int jj=0;jj<2;jj++){
+      for(int j=0;j<BK;j++){
+        WTF.push_back(WTF[j]);//????
+      }    
+    }
+    for(int j=0;j<BK;j++){//????
+//      string &insert(int p0,const string &s, int pos, int n);
+//?4????p0???????s?pos????n???
+      WTF[j+BK].insert(0, WTF[j] );
+      WTF[j+BK].insert(0, WTF[j] );
+    }    
+    
+    for(int j=0;j<BK;j++){
+      WTF[j].insert(0, BK, ' ');//????p0???n???c
+      WTF[j].insert(BK*2, BK, ' ');
+      WTF[j+BK*2].insert(0, BK, ' ');//????p0???n???c
+      WTF[j+BK*2].insert(BK*2, BK, ' ');
+    }
+	while(i==next){
+    show(arry_findNums[k].No,WTF);
+    k++;
+      if(k>=T)break;
+  	next=arry_findNums[k].num;}
+    //show(233,WTF);
+  }
+    return 0;
+}
+
+                    
