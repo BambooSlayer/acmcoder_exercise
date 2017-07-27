@@ -1,0 +1,86 @@
+#include  <iostream> 
+#include <vector>
+#include <string>
+#include <algorithm>    // std::sort
+
+using namespace std;
+ 
+long cont_arrange(int N)
+{
+  long arrang=1;
+      while(N>1)
+      {
+        arrang*=N--;
+      }
+  return arrang;
+}
+long find_blk(int n,int m)//把n空位分到m组里
+{
+	long blk=1;
+  	m--;
+  	n--;
+  	if(m<n-m)m=n-m;
+  for(int i=m;i<=n;i++){
+  		blk*=i;
+  }
+  for(int i=m-n;i>1;i--){
+  		blk/=i;
+  }  
+  return blk;
+}
+int main()
+{
+  	int T,n,m,blk;
+  	long arrang,fblk;
+  	cin>>T; //case num
+    if(T==0)return 0;
+  	for(int i=0;i<T;i++)
+    {
+    	cin>>n>>m;//n sets m guests
+      	if(m*2>n){cout<<0;continue;}
+      	arrang=cont_arrange(m);
+      	//blk=n-2*m;//可以安插的空位
+      	fblk=find_blk(m-n,m);//把空位分到m组里
+    }
+  vector<int> v0=v;
+  sort(v.begin(),v.end());
+  int max=v[T-1];
+  //cout<<max; 需要生成的最大层数 
+  int BK;
+  vector<string> WTF;
+  WTF.push_back("o");
+  if(max==1){
+  	for(int i=0;i<T;i++)show(i,WTF);
+  }
+  for(int i=2;i<=max ;i++)
+  {
+  BK=WTF.size();
+    for(int jj=0;jj<2;jj++){
+      for(int j=0;j<BK;j++){
+        WTF.push_back(WTF[j]);//????
+      }    
+    }
+    for(int j=0;j<BK;j++){//????
+//      string &insert(int p0,const string &s, int pos, int n);
+      WTF[j+BK].insert(0, WTF[j] );
+      WTF[j+BK].insert(0, WTF[j] );
+    }    
+    
+    for(int j=0;j<BK;j++){
+      WTF[j].insert(0, BK, ' ');
+      WTF[j].insert(BK*2, BK, ' ');
+      WTF[j+BK*2].insert(0, BK, ' ');
+      WTF[j+BK*2].insert(BK*2, BK, ' ');
+    }
+    //show(233,WTF);
+  }
+
+  	for(int i=0;i<T;i++)
+    {
+      show(i+1,WTF,v0[i]);
+      
+    }
+    return 0;
+}
+
+                    
