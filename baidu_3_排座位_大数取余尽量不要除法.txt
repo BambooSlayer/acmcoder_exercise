@@ -1,0 +1,35 @@
+#include  <iostream> 
+#include <vector>
+#include <string>
+#include <algorithm>    // std::sort
+
+using namespace std;
+ 
+int main()
+{//直接有序排列不就不用除法了吗！那样好做多了……
+  	int T,n,m;
+  	long long arrang;
+    unsigned long long ago,fblk;
+  	cin>>T; //case num
+    if(T==0)return 0;
+  	for(int i=0;i<T;i++)
+    {
+    	cin>>n;
+        cin>>m;//n sets m guests
+      	if(m*2>n){cout<<0<<endl;continue;}
+      ago=m;//who sit at the end
+      	for(int j=1;j<m;j++){//two end sitted
+        	ago*=(n-m-j);
+            ago%=1000000007;
+        }
+      fblk=1;
+       for(int j=1;j<=m;j++){//end void
+        	fblk*=(n-m-j);
+            fblk%=1000000007;
+        }
+      cout<<(ago*2+fblk)%1000000007<<endl;
+    }
+    return 0;
+}
+
+                    
